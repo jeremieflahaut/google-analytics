@@ -1,0 +1,27 @@
+{
+    "name": "jflahaut/analytics",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérémie Flahaut",
+            "email": "jflahaut@exemple.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Jflahaut\\Analytics\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jflahaut\\Analytics\\AnalyticsServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
+}
