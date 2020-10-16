@@ -5,6 +5,7 @@ namespace Jflahaut\Analytics;
 use DateTime;
 use Illuminate\Support\Collection;
 use Google_Service_Analytics_GaData;
+use Jflahaut\Analytics\Period\Period;
 
 class Analytics
 {
@@ -21,16 +22,14 @@ class Analytics
 
     /**
      * @param string $viewId
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param Period $period
      * @return Collection
      */
-    public function getVisitorsAndPageViews(string $viewId, DateTime $startDate, DateTime $endDate): Collection
+    public function getVisitorsAndPageViews(string $viewId, Period $period): Collection
     {
         $response = $this->query(
             $viewId,
-            $startDate,
-            $endDate,
+            $period,
             'ga:users,ga:pageviews',
             ['dimensions' => 'ga:date,ga:pageTitle']
         );
@@ -47,18 +46,17 @@ class Analytics
 
     /**
      * @param $viewId
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param Period $period
      * @param string $metrics
      * @param array $options
      * @return Google_Service_Analytics_GaData
      */
-    public function query($viewId, DateTime $startDate, DateTime $endDate, string $metrics, $options = []): Google_Service_Analytics_GaData
+    public function query($viewId, Period $period, string $metrics, $options = []): Google_Service_Analytics_GaData
     {
         return $this->client->query(
             $viewId,
-            $startDate,
-            $endDate,
+            $period->getStartDate(),
+            $period->getEndDate(),
             $metrics,
             $options
         );
